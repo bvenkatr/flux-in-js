@@ -1,4 +1,6 @@
-var path = require("path");
+let path = require("path");
+let webpack  = require("webpack");
+
 process.traceDeprecation = true;
 module.exports = {
     devtool: "inline-source-map",
@@ -18,5 +20,13 @@ module.exports = {
                 presets: ["es2015", "react"]
             }
         }]
-    }
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin()
+    ]
 };
