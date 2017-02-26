@@ -1,5 +1,5 @@
 import React from "react";
-import {getState, External} from "./CounterStore";
+import CounterStore from "./CounterStore";
 import {eventBus} from "../../fluxLib";
 
 const style = {
@@ -10,14 +10,17 @@ const style = {
 class Counter extends React.Component {
     constructor(props) {
         super(props);
-        this.state = getState();
-        eventBus.subscribe("CounterStore_onChange", function () {
-            this.setState(getState());
+        this.state = CounterStore.getState();
+        this.unsub = CounterStore.onChange(function () {
+            this.setState(CounterStore.getState());
         }.bind(this));
     }
 
+    componentWillUnmount() {
+        this.unsub();
+    }
+
     increment() {
-        // External.INCREMENT();
         eventBus.publish("INCREMENT");
     }
 

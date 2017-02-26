@@ -1,6 +1,7 @@
 var path = require("path");
 process.traceDeprecation = true;
 module.exports = {
+    devtool: "inline-source-map",
     entry: {
         bundle: ["./index.js"]
     },
