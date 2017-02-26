@@ -17,12 +17,12 @@ class Counter extends React.Component {
     }
 
     increment() {
-        External.INCREMENT();
+        // External.INCREMENT();
+        eventBus.publish("INCREMENT");
     }
 
     decrement() {
-        External.DECREMENT();
-        this.setState(getState());
+        eventBus.publish("DECREMENT");
     }
 
     render() {
