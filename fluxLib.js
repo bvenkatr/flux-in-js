@@ -1,10 +1,9 @@
 import EventBus from "./eventBus";
 const eventBus = new EventBus();
-import uuid from "uuid";
 
 const createStore = (External)=> {
     const state = External.INIT();
-    let randomStoreId = uuid.v4();
+    let randomStoreId = `randomId-${Date.now()}`;
 
     Object.keys(External).forEach(function (key) {
         if (key !== "INIT") {
