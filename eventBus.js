@@ -21,6 +21,13 @@ class EventBus {
         };
     }
 
+    subscribeAll(callback) {
+        var i = this._globalCallbackList.push(callback) - 1;
+        return () => {
+            this._globalCallbackList[i] = null;
+        }
+    }
+
     publish(topic, ...args) {
         if (this._topicList[topic] !== undefined) {
             this._topicList[topic].map(function (callback) {
@@ -29,6 +36,12 @@ class EventBus {
                 }
             });
         }
+        this._globalCallbackList.map(function (callback) {
+            if (callback !== null) {//SKIP the unsubscribed callback !
+                callback.apply(null, [topic].concat(args));
+            }
+        });
+
     }
 }
 
