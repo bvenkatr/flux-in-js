@@ -1,7 +1,7 @@
 let path = require("path");
-let webpack  = require("webpack");
+let webpack = require("webpack");
 
-process.traceDeprecation = true;
+// process.traceDeprecation = true;
 module.exports = {
     devtool: "inline-source-map",
     entry: {
