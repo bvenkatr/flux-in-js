@@ -1,48 +1,15 @@
-import React, {Component, PropTypes} from 'react'
+import {createStore} from "../fluxLib";
+import CounterReducer from "../reducers/CounterReducer";
 
-class Counter extends Component {
-    static get propTypes() {
-        return {
-            value: PropTypes.number.isRequired,
-            onIncrement: PropTypes.func.isRequired,
-            onDecrement: PropTypes.func.isRequired
-        }
-    }
+const store = createStore(CounterReducer);
+const render = () => {
+    document.body.innerText = store.getState();
+};
 
-    incrementIfOdd() {
-        if (this.props.value % 2 !== 0) {
-            this.props.onIncrement()
-        }
-    };
+store.subscribe(render);
 
-    incrementAsync() {
-        setTimeout(this.props.onIncrement, 1000)
-    };
+render();
 
-    render() {
-        const {value, onIncrement, onDecrement} = this.props;
-        return (
-            <p>
-                Clicked: {value} times
-                {' '}
-                <button onClick={onIncrement}>
-                    +
-                </button>
-                {' '}
-                <button onClick={onDecrement}>
-                    -
-                </button>
-                {' '}
-                <button onClick={this.incrementIfOdd.bind(this)}>
-                    Increment if odd
-                </button>
-                {' '}
-                <button onClick={this.incrementAsync.bind(this)}>
-                    Increment async
-                </button>
-            </p>
-        )
-    }
-}
-
-export default Counter
+document.addEventListener("click", () => {
+   store.dispatch({type: "INCREMENT"});
+});
