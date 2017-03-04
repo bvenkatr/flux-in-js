@@ -1,15 +1,10 @@
-import {createStore} from "../fluxLib";
-import CounterReducer from "../reducers/CounterReducer";
-
-const store = createStore(CounterReducer);
-const render = () => {
-    document.body.innerText = store.getState();
+import React from "react";
+const Counter = ({value, onIncrement, onDecrement}) => {
+    return <div>
+        <h1>{value}</h1>
+        <button onClick={onIncrement}>+</button>
+        <button onClick={onDecrement}>-</button>
+    </div>
 };
 
-store.subscribe(render);
-
-render();
-
-document.addEventListener("click", () => {
-   store.dispatch({type: "INCREMENT"});
-});
+export default Counter;
